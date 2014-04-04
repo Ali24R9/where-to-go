@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  database: where_to_go_development
+
+test:
+  adapter: postgresql
+  database: where_to_go_test
