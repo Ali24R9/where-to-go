@@ -2,14 +2,22 @@ class CitiesController < ApplicationController
 
   def index
     @cities = City.all
+    @categories = Category.all
     render('cities/index.html.erb')
   end
 
   def create
     params[:city][:slug] = params[:city][:name].parameterize
     @city = City.create(params[:city])
+    @categories = Category.all
+
+    @categories.each do |cat|
+      @city.ratings.create(category: cat)
+    end
+
 
     if @city.save
+      flash[:notice] = "Your city was added."
       redirect_to("/cities")
     else
       render('/cities/index.html.erb')
@@ -35,7 +43,12 @@ class CitiesController < ApplicationController
     else
       render('cities/show.html.erb')
     end
+  end
 
+  def destroy
+    @city = City.find_by(:slug => params[:slug])
+    @city.destroy
+    redirect_to("/cities/")
   end
 
 end

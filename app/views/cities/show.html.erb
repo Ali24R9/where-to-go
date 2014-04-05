@@ -1,8 +1,35 @@
+<div class="opacity">
 <h1><%= @city.name %></h1>
 
+</div>
 
+<ul class="wide">
+<% @city.categories.each do |category| %>
+  <li class="borders">
+    <div class="col-md-12">
+      <div class="col-sm-4">
+        <a href="/categories/<%= category.slug %>">
+        <%= category.name %></a>
+      </div>
+      <div class="col-sm-4">
+        <a href="/cities/<%= @city.slug %>/categories/<%= category.slug %>/ratings/"><button class="btn thumbs_up">Vote Up</button>
+      </div>
+
+    </div>
+  </li>
+<% end %>
+</ul>
 <br>
 <br>
-<a href="/cities/"><button class="btn btn-primary">Home</button></a>
 
 <a href="/cities/<%= @city.slug %>/edit"><button class="btn">Edit</button></a>
+
+<a href="/cities/<%= @city.slug %>/"
+         data-confirm="Are you sure?"
+         data-method="delete"
+         rel="nofollow"
+         ><button class="btn btn-danger">Delete</button></a>
+
+<a href="/cities/"><button class="btn btn-primary">Home</button></a>
+
+
